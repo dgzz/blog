@@ -43,7 +43,7 @@ class ArticleDetailView(APIView):
         # render函数：载入模板，并返回context对象
         return render(request, 'article/detail.html', context)
 
-
+# 发布新文章
 class ArticleLCreateView(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -65,3 +65,13 @@ class ArticleLCreateView(APIView):
         # 如果数据不合法，返回错误信息
         else:
             return Response("表单内容有误，请重新填写。")
+
+# 删除文章
+def article_delete(request,id):
+    # 根据 id 获取需要删除的文章
+    article = ArticlePost.objects.get(id=id)
+    # 调用.delete()方法删除文章
+    article.delete()
+    # 完成删除后返回文章列表
+    return redirect("article:article_list")
+
