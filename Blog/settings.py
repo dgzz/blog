@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
+    'password_reset',
 
     'article.apps.ArticleConfig',
     'userprofile.apps.UserprofileConfig',
@@ -172,3 +173,17 @@ CORS_ORIGIN_WHITELIST = (
     'api.blog.site:8000'
 )
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
+
+# 发送邮件，重置密码
+# SMTP服务器，改为你的邮箱的smtp!
+EMAIL_HOST = 'smtp.163.com'
+# 改为你自己的邮箱名！
+EMAIL_HOST_USER = 'hdong927@163.com'
+# 你的邮箱密码
+EMAIL_HOST_PASSWORD = 'hdong927'
+# 发送邮件的端口
+EMAIL_PORT = 25
+# 是否使用 TLS
+EMAIL_USE_TLS = True
+# 默认的发件人
+DEFAULT_FROM_EMAIL = 'hdong927@163.com'

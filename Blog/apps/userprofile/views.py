@@ -59,8 +59,10 @@ def user_register(request):
         return HttpResponse("请使用GET或POST请求数据")
 
 # 删除用户
+# 验证删除之前是否已经登录
 @login_required(login_url='/userprofile/login/')
 def user_delete(request,id):
+    # 获取用户
     user = User.objects.get(id=id)
     if request.user == user:
         # 退出登录，删除数据并返回博客列表
