@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from .forms import UserLoginForm,UserRegisterForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 # 用户登录
@@ -56,4 +58,14 @@ def user_register(request):
     else:
         return HttpResponse("请使用GET或POST请求数据")
 
-    pass
+# 删除用户
+@login_required(login_url='/userprofile/login/')
+def user_delete(request,id):
+    user = User.objects.get(id=id)
+    if request.user == user:
+        # 退出登录，删除数据并返回博客列表
+        logout(request)
+        user.delete()
+        return redirect('article:article_list')
+    else:
+        return HttpResponse("你没有删除操作的权限。")
