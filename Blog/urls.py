@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
+# 新引入的模块
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -22,3 +25,6 @@ urlpatterns = [
     url(r'^userprofile/', include('userprofile.urls',namespace='userprofile')),
     url(r'^password-reset/', include('password_reset.urls')),
 ]
+
+#添加这行
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
